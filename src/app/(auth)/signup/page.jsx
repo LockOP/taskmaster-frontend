@@ -1,6 +1,6 @@
 "use client";
-import { signup } from "@/app/services/authService";
-import { useRouter } from 'next/navigation';
+import { signUp } from "@/services/authServices";
+import { useRouter } from "next/navigation";
 import {
   Card,
   CardHeader,
@@ -15,43 +15,56 @@ import { useState } from "react";
 import Link from "next/link";
 
 export default function SignUpComponent() {
-    const [firstName, setFirstName] = useState("");
+  const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-    const [email, setEmail] = useState(""); 
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  const router = useRouter(); 
+  const router = useRouter();
 
   // Function to check if passwords match and toggle button
   const handlePasswordChange = (e) => {
     const value = e.target.value;
     setPassword(value);
     setIsButtonDisabled(
-      value !== confirmPassword || email === "" || firstName === "" || lastName === ""
+      value !== confirmPassword ||
+        email === "" ||
+        firstName === "" ||
+        lastName === ""
     );
   };
 
   const handleConfirmPasswordChange = (e) => {
     const value = e.target.value;
     setConfirmPassword(value);
-    setIsButtonDisabled(value !== password || email === "" || firstName === "" || lastName === "");
+    setIsButtonDisabled(
+      value !== password || email === "" || firstName === "" || lastName === ""
+    );
   };
 
   const handleEmailChange = (e) => {
     const value = e.target.value;
     setEmail(value);
-    setIsButtonDisabled(password !== confirmPassword || value === "" || firstName === "" || lastName === "");
+    setIsButtonDisabled(
+      password !== confirmPassword ||
+        value === "" ||
+        firstName === "" ||
+        lastName === ""
+    );
   };
 
   const handleFirstNameChange = (e) => {
     const value = e.target.value;
     setFirstName(value);
     setIsButtonDisabled(
-      password !== confirmPassword || email === "" || value === "" || lastName === ""
+      password !== confirmPassword ||
+        email === "" ||
+        value === "" ||
+        lastName === ""
     );
   };
 
@@ -59,11 +72,14 @@ export default function SignUpComponent() {
     const value = e.target.value;
     setLastName(value);
     setIsButtonDisabled(
-      password !== confirmPassword || email === "" || firstName === "" || value === ""
+      password !== confirmPassword ||
+        email === "" ||
+        firstName === "" ||
+        value === ""
     );
   };
 
-  // Handle form submission for signup
+  // Handle form submission for signUp
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(""); // Clear previous error
@@ -74,10 +90,10 @@ export default function SignUpComponent() {
     }
 
     try {
-        const response = await signup({ firstName, lastName, email, password });
+      const response = await signUp({ firstName, lastName, email, password });
       setSuccess("Account created successfully!");
       console.log("User registered:", response);
-      router.push('/login'); // Redirect to the login page
+      router.push("/login"); // Redirect to the login page
     } catch (err) {
       setError(err.message || "Failed to create account");
     }
@@ -161,7 +177,7 @@ export default function SignUpComponent() {
               <div className="flex flex-row">
                 <CardDescription>Don't have an account? </CardDescription>
                 <Label htmlFor="email" className="pt-1">
-                  <Link href="/login" >Login</Link>
+                  <Link href="/login">Login</Link>
                 </Label>
               </div>
             </div>

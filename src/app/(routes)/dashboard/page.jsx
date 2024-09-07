@@ -1,18 +1,8 @@
 "use client";
-
-import { Sidebar } from "@/app/components/sidebar";
-import LogoutComponent from "../../(auth)/logout/page";
-
-LogoutComponent;
-
 export default function Dashboard() {
   return (
-    <>
-      <div className="flex flex-row justify-between">
-        <div>Dashboard</div>
-        <LogoutComponent />
-      </div>
-      <Sidebar />
-    </>
+    <div className="w-full h-full bg-[pink] p-4">
+      <div className="bg-[purple] w-full h-full">Dashboard</div>
+    </div>
   );
 }

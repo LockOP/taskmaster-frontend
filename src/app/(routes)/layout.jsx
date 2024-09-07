@@ -1,7 +1,7 @@
 // export default function RootLayout({ children }) {
 //     return (
 //         <>
-        
+
 //            {children}
 //        </>
 //     );
@@ -11,6 +11,8 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { Sidebar } from "../../components/ui/sidebar";
+import Header from "@/components/ui/header";
 
 export default function RootLayout({ children }) {
   const router = useRouter();
@@ -23,9 +25,12 @@ export default function RootLayout({ children }) {
   }, [router]);
 
   return (
-    <div>
-      {/* Your layout structure here (e.g., Navbar, Sidebar) */}
-      <main>{children}</main> {/* Render the child pages */}
+    <div className="flex flex-row w-screen h-[100dvh]">
+      <Sidebar />
+      <div className="flex-grow overflow-auto h-full flex flex-col">
+        <Header />
+        <div className="flex-grow overflow-auto h-full">{children}</div>
+      </div>
     </div>
   );
 }

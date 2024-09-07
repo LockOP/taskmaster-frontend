@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { login } from "@/app/services/authService";
+import { logIn } from "@/services/authServices";
 import Link from "next/link";
 
 export default function LoginComponent() {
@@ -28,7 +28,7 @@ export default function LoginComponent() {
     setIsLoading(true); // Show loading state
 
     try {
-      const data = await login({ email, password}); // Call the login API
+      const data = await logIn({ email, password }); // Call the logIn API
 
       console.log("Login successful. Token:", data.token);
 
@@ -47,7 +47,7 @@ export default function LoginComponent() {
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold">Login</CardTitle>
           <CardDescription>
-            Enter your email and password to login to your account
+            Enter your email and password to logIn to your account
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -82,7 +82,7 @@ export default function LoginComponent() {
               <div className="flex flex-row">
                 <CardDescription>Don't have an account? </CardDescription>
                 <Label htmlFor="email" className="pt-1">
-                  <Link href="/signup" >Sign-up</Link>
+                  <Link href="/signup">Sign-up</Link>
                 </Label>
               </div>
             </div>
