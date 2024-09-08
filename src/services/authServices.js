@@ -16,8 +16,10 @@ export const signUp = async (userData) => {
     });
     return response.data;
   } catch (error) {
-    console.error(error);
-    throw error.response.data;
+    console.log(
+      error?.response?.data?.error || error?.message || "Internal Server Error"
+    );
+    return { message: "failed" };
   }
 };
 
@@ -34,7 +36,29 @@ export const logIn = async (userData) => {
     });
     return response.data;
   } catch (error) {
-    console.error(error);
-    throw error.response.data;
+    console.log(
+      error?.response?.data?.error || error?.message || "Internal Server Error"
+    );
+    return { message: "failed" };
+  }
+};
+
+export const validateToken = async () => {
+  try {
+    const response = await axios({
+      url: `${API_URL}/auth/validateToken`,
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json;charset=UTF-8",
+        authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.log(
+      error?.response?.data?.error || error?.message || "Internal Server Error"
+    );
+    return { message: "failed" };
   }
 };

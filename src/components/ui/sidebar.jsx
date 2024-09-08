@@ -17,15 +17,17 @@ export function Sidebar() {
     <aside
       className={cn(
         "h-screen translate-x-0 transition-[width] ease-in-out duration-300",
-        sidebar?.isOpen === false ? "w-[90px]" : "w-72"
+        sidebar?.isOpen === false ? "w-[20px]" : "w-72"
       )}
     >
       <SidebarToggle isOpen={sidebar?.isOpen} setIsOpen={sidebar?.setIsOpen} />
-      <div className="relative h-full flex flex-col px-3 py-4 overflow-y-auto shadow-md dark:shadow-zinc-800">
+      <div className="relative h-full flex flex-col px-3 py-4 overflow-y-auto overflow-x-clip bg-white shadow-md dark:shadow-zinc-800">
         <Button
           className={cn(
-            "transition-transform ease-in-out duration-300 mb-1 justify-start",
-            sidebar?.isOpen === false ? "translate-x-1" : "translate-x-0"
+            "transition-transform ease-in-out duration-300 mb-1 justify-start shrink-0",
+            sidebar?.isOpen === false
+              ? "translate-x-1 invivisible"
+              : "translate-x-0"
           )}
           variant="link"
           asChild

@@ -33,7 +33,12 @@ export default function LoginComponent() {
       console.log("Login successful. Token:", data.token);
 
       localStorage.setItem("token", data.token); // Store the JWT token
-      router.push("/dashboard"); // Redirect to dashboard or other protected page
+      localStorage.setItem("firstName", data.firstName);
+      localStorage.setItem("lastName", data.lastName);
+      localStorage.setItem("email", data.email);
+      localStorage.setItem("role", data.role);
+      localStorage.setItem("id", data.id);
+      router.push("/"); // Redirect to dashboard or other protected page
     } catch (err) {
       setError(err.message || "Login failed");
     } finally {

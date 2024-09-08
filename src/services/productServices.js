@@ -1,16 +1,12 @@
-import {
-  defaultStatusTypeOptionIds,
-  defaultTaskTypeOptionIds,
-} from "@/lib/defaultData";
 import axios from "axios";
 
 const API_URL = process.env.NEXT_PUBLIC_API_ENDPOINT;
 console.log(API_URL);
 
-export const createTeam = async ({ title, description }) => {
+export const createProduct = async ({ title, description, teamId }) => {
   try {
     const response = await axios({
-      url: `${API_URL}/teams`,
+      url: `${API_URL}/products`,
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -20,8 +16,7 @@ export const createTeam = async ({ title, description }) => {
       data: {
         title: title.trim(),
         description: description.trim(),
-        status: defaultStatusTypeOptionIds,
-        type: defaultTaskTypeOptionIds,
+        teamId: teamId,
       },
     });
     return response.data;
@@ -40,10 +35,10 @@ export const createTeam = async ({ title, description }) => {
   }
 };
 
-export const getTeams = async () => {
+export const getProduct = async ({ id }) => {
   try {
     const response = await axios({
-      url: `${API_URL}/teams`,
+      url: `${API_URL}/product/${id}`,
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -54,7 +49,7 @@ export const getTeams = async () => {
     return response.data;
   } catch (error) {
     console.log(
-      "getTeams",
+      "getProducts",
       error?.response?.data?.error || error?.message || "Internal Server Error"
     );
     return {
@@ -67,10 +62,37 @@ export const getTeams = async () => {
   }
 };
 
-export const updateTeam = async ({ id, title, description }) => {
+export const getProductOptions = async ({ id }) => {
   try {
     const response = await axios({
-      url: `${API_URL}/team/${id}`,
+      url: `${API_URL}/productOptions/${id}`,
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json;charset=UTF-8",
+        authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.log(
+      "getProducts",
+      error?.response?.data?.error || error?.message || "Internal Server Error"
+    );
+    return {
+      message: "failed",
+      error:
+        error?.response?.data?.error ||
+        error?.message ||
+        "Internal Server Error",
+    };
+  }
+};
+
+export const updateProduct = async ({ id, title, description }) => {
+  try {
+    const response = await axios({
+      url: `${API_URL}/product/${id}`,
       method: "PATCH",
       headers: {
         Accept: "application/json",
@@ -85,42 +107,7 @@ export const updateTeam = async ({ id, title, description }) => {
     return response.data;
   } catch (error) {
     console.log(
-      "updateTeam",
-      error?.response?.data?.error || error?.message || "Internal Server Error"
-    );
-    return {
-      message: "failed",
-      error:
-        error?.response?.data?.error ||
-        error?.message ||
-        "Internal Server Error",
-    };
-  }
-};
-
-export const updateTaskOptionsForTeam = async ({
-  id,
-  statusOptions,
-  typeOptions,
-}) => {
-  try {
-    const response = await axios({
-      url: `${API_URL}/team/${id}/taskOptions`,
-      method: "PATCH",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json;charset=UTF-8",
-        authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-      data: {
-        statusOptions: statusOptions,
-        typeOptions: typeOptions,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.log(
-      "updateTaskOptionsForTeam",
+      "updateProduct",
       error?.response?.data?.error || error?.message || "Internal Server Error"
     );
     return {
